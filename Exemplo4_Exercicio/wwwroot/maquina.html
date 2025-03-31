@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Máquinas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <a href="index.html">Usuários</a> | 
+        <a href="maquina.html" class="active">Máquinas</a> |
+        <a href="software.html">Softwares</a>
+    </nav>
+    <div class="container">
+        <h1>Cadastro de Máquinas</h1>
+        <form id="maquinaForm">
+            <input type="number" id="id" placeholder="ID da Máquina">
+            <input type="text" id="tipo" placeholder="Tipo de Máquina" required>
+            <input type="number" id="velocidade" placeholder="Velocidade (MHz)" required>
+            <input type="number" id="hardDisk" placeholder="Hard Disk (GB)" required>
+            <input type="number" id="placaRede" placeholder="Placa de Rede (Mbps)" required>
+            <input type="number" id="memoriaRam" placeholder="Memória RAM (GB)" required>
+            <input type="number" id="fkUsuario" placeholder="ID do Usuário" required>
+            <button type="submit">Salvar</button>
+        </form>
+
+        <h2>Lista de Máquinas</h2>
+        <table id="tabelaMaquinas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Velocidade</th>
+                    <th>Hard Disk</th>
+                    <th>Placa de Rede</th>
+                    <th>Memória RAM</th>
+                    <th>ID Usuário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Será preenchido dinamicamente pelo JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script src="maquina.js"></script>
+</body>
+
+</html>
