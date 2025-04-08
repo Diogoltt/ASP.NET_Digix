@@ -1,0 +1,4 @@
+# dotnet new gitignore
+
+/bin    
+/obj
