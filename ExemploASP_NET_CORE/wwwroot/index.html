@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Bem-vindo ao ASP.NET + PostgreSQL</h1>
+    <p>API conectada com banco de dados e arquivos estáticos prontos!</p>
+
+    <div id="usuarios">
+        <h2>Usuários cadastrados:</h2>
+        <ul id="listaUsuarios"></ul>
+    </div>
+
+    <button id="btnCarregar">Carregar Usuários</button>
+
+    <script>
+        document.getElementById("btnCarregar").addEventListener("click", async function () {
+            const resposta = await fetch("/Usuario");
+            const usuarios = await resposta.json();
+
+            const lista = document.getElementById("listaUsuarios");
+            lista.innerHTML = ""; // limpa a lista
+
+            usuarios.forEach(u => {
+                const li = document.createElement("li");
+                li.innerText = `ID: ${u.id}, Nome: ${u.nome}, Email: ${u.email}`;
+                lista.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
