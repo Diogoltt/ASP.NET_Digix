@@ -13,11 +13,6 @@ namespace SistemaEscolarAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=sistemaescolar;Username=postgres;Password=123456");
-        }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
