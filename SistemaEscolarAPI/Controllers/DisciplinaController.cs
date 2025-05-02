@@ -18,7 +18,7 @@ namespace SistemaEscolarAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DisciplinaDTO>>> GetDisciplinas()
+        public async Task<ActionResult<IEnumerable<DisciplinaDTO>>> Get()
         {
             var disciplinas = await _context.Disciplinas
                 .Include(d => d.Curso)
@@ -26,6 +26,25 @@ namespace SistemaEscolarAPI.Controllers
                 .ToListAsync();
 
             return Ok(disciplinas);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DisciplinaDTO>> Get(int id)
+        {
+            var disciplinaDto = await _context.Disciplinas
+                .Where(d => d.Id == id)
+                .Select(d => new DisciplinaDTO
+                {
+                    Id = d.Id,
+                    Descricao = d.Descricao,
+                    Curso = d.Curso.Descricao
+                })
+                .FirstOrDefaultAsync();
+
+            if (disciplinaDto == null) return NotFound("Disciplina não encontrada");
+
+            return Ok(disciplinaDto);
+
         }
 
         [HttpPost]
@@ -38,7 +57,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Disciplinas.Add(disciplina);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new { mensagem = "Disciplina cadastrada com sucesso." });
         }
 
         [HttpPut("{id}")]
@@ -50,7 +69,7 @@ namespace SistemaEscolarAPI.Controllers
             disciplina.Descricao = disciplinaDTO.Descricao;
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { mensagem = "Disciplina alterada com sucesso." });
         }
 
         [HttpDelete("{id}")]
@@ -62,7 +81,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Disciplinas.Remove(disciplina);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { mensagem = "Disciplina removida com sucesso." });
         }
     }
 }

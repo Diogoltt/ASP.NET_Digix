@@ -18,7 +18,7 @@ namespace SistemaEscolarAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlunoDTO>>> GetAlunos()
+        public async Task<ActionResult<IEnumerable<AlunoDTO>>> Get()
         {
             var alunos = await _context.Alunos
                 .Include(a => a.Curso)
@@ -27,6 +27,26 @@ namespace SistemaEscolarAPI.Controllers
 
             return Ok(alunos);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AlunoDTO>> Get(int id)
+        {
+            var aluno = await _context.Alunos
+                .Include(a => a.Curso)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (aluno == null) return NotFound("Aluno não encontrado");
+
+            var alunoDto = new AlunoDTO
+            {
+                Id = aluno.Id,
+                Nome = aluno.Nome,
+                Curso = aluno.Curso.Descricao
+            };
+
+            return Ok(alunoDto);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] AlunoDTO alunoDTO)
@@ -41,7 +61,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Alunos.Add(aluno);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new { mensagem = "Aluno cadastrado com sucesso!" });
         }
 
         [HttpPut("{id}")]
@@ -49,11 +69,11 @@ namespace SistemaEscolarAPI.Controllers
         {
             var aluno = await _context.Alunos.FindAsync(id);
             if (aluno == null) return NotFound("Aluno não encontrado.");
-            
+
 
             var curso = await _context.Cursos.FirstOrDefaultAsync(c => c.Descricao == alunoDTO.Curso);
             if (curso == null) return BadRequest("Curso não encontrado.");
-        
+
 
             aluno.Nome = alunoDTO.Nome;
             aluno.CursoId = curso.Id;
@@ -61,7 +81,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Alunos.Update(aluno);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new { mensagem = "Aluno atualizado com sucesso!" });
 
         }
 
@@ -74,7 +94,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Alunos.Remove(aluno);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new { mensagem = "Aluno excluído com sucesso!" });
         }
     }
 }

@@ -25,15 +25,49 @@ namespace SistemaEscolarAPI.Controllers
         public async Task<ActionResult<IEnumerable<DisciplinaAlunoCursoDTO>>> Get()
         {
             var registros = await _context.DisciplinaAlunoCursos
-              .Select(d => new DisciplinaAlunoCursoDTO
-              {
-                  AlunoId = d.AlunoId,
-                  CursoId = d.CursoId,
-                  DisciplinaId = d.DisciplinaId
-              })
-              .ToListAsync();
+                .Include(d => d.Aluno)
+                .Include(d => d.Curso)
+                .Include(d => d.Disciplina)
+                .Select(d => new DisciplinaAlunoCursoDTO
+                {
+                    Id = d.AlunoId + d.CursoId + d.DisciplinaId,
+                    AlunoId = d.AlunoId,
+                    AlunoNome = d.Aluno.Nome,
+                    CursoId = d.CursoId,
+                    CursoDescricao = d.Curso.Descricao,
+                    DisciplinaId = d.DisciplinaId,
+                    DisciplinaDescricao = d.Disciplina.Descricao
+                })
+                .ToListAsync();
 
             return Ok(registros);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DisciplinaAlunoCursoDTO>> Get(int id)
+        {
+            var relacoes = await _context.DisciplinaAlunoCursos
+                .Include(d => d.Aluno)
+                .Include(d => d.Curso)
+                .Include(d => d.Disciplina)
+                .ToListAsync();
+
+            var relacao = relacoes.FirstOrDefault(r => r.AlunoId + r.CursoId + r.DisciplinaId == id);
+
+            if (relacao == null) return NotFound("Relacao nao encontrada");
+
+            var dto = new DisciplinaAlunoCursoDTO
+            {
+                Id = relacao.AlunoId + relacao.CursoId + relacao.DisciplinaId,
+                AlunoId = relacao.AlunoId,
+                AlunoNome = relacao.Aluno.Nome,
+                CursoId = relacao.CursoId,
+                CursoDescricao = relacao.Curso.Descricao,
+                DisciplinaId = relacao.DisciplinaId,
+                DisciplinaDescricao = relacao.Disciplina.Descricao
+            };
+
+            return Ok(dto);
         }
 
         [HttpPost]
@@ -61,14 +95,14 @@ namespace SistemaEscolarAPI.Controllers
             }
 
             _context.DisciplinaAlunoCursos.Remove(entidade);
-            
+
             var novaEntidade = new DisciplinaAlunoCurso
             {
                 AlunoId = dto.AlunoId,
                 DisciplinaId = dto.DisciplinaId,
                 CursoId = dto.CursoId
             };
-            
+
             _context.DisciplinaAlunoCursos.Add(novaEntidade);
             await _context.SaveChangesAsync();
 

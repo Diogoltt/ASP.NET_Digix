@@ -18,7 +18,7 @@ namespace SistemaEscolarAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CursoDTO>>> GetCursos()
+        public async Task<ActionResult<IEnumerable<CursoDTO>>> Get()
         {
             var cursos = await _context.Cursos
                 .Select(c => new CursoDTO 
@@ -31,6 +31,21 @@ namespace SistemaEscolarAPI.Controllers
             return Ok(cursos);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CursoDTO>> Get(int id)
+        {
+            var curso = await _context.Cursos.FindAsync(id);
+            if (curso == null) return NotFound("Curso não encontrado");
+            
+            var cursoDto = new CursoDTO
+            {
+                Id = curso.Id,
+                Descricao = curso.Descricao
+            };
+
+            return Ok(cursoDto);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] CursoDTO cursoDTO)
         {
@@ -38,7 +53,7 @@ namespace SistemaEscolarAPI.Controllers
             _context.Cursos.Add(curso);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCursos), new { id = curso.Id }, curso);
+            return CreatedAtAction(nameof(Get), new { id = curso.Id }, curso);
         }
 
         [HttpPut("{id}")]
