@@ -9,6 +9,7 @@ namespace SistemaEscolarAPI.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
+        [HttpPost]
         public IActionResult Login([FromBody] LoginDTO LoginDto)
         {
             if (string.IsNullOrWhiteSpace(LoginDto.Username) || string.IsNullOrWhiteSpace(LoginDto.Password))
@@ -24,12 +25,12 @@ namespace SistemaEscolarAPI.Controllers
 
             var user = users.FirstOrDefault(u =>
                 u.Username == LoginDto.Username && u.Password == LoginDto.Password);
-            
+
             if (user == null)
-                return Unauthorized(new { message = "Usuário ou senha inválidos"});
+                return Unauthorized(new { message = "Usuário ou senha inválidos" });
 
             var token = TokenService.GenerateToken(user);
-            return Ok(new {token});
+            return Ok(new { token });
 
 
         }
