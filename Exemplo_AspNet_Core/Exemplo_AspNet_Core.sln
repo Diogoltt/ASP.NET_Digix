@@ -1,8 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exemplo_AspNet_Core", "Exemplo_AspNet_Core.csproj", "{5B6A5133-F1B0-6EA0-5CFA-152E45BCC91F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaEscolarAPI", "..\SistemaEscolarAPI\SistemaEscolarAPI.csproj", "{C537073E-4060-4B23-8D17-2B19E3AFF46B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,6 +16,10 @@ Global
 		{5B6A5133-F1B0-6EA0-5CFA-152E45BCC91F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B6A5133-F1B0-6EA0-5CFA-152E45BCC91F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B6A5133-F1B0-6EA0-5CFA-152E45BCC91F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C537073E-4060-4B23-8D17-2B19E3AFF46B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C537073E-4060-4B23-8D17-2B19E3AFF46B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C537073E-4060-4B23-8D17-2B19E3AFF46B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C537073E-4060-4B23-8D17-2B19E3AFF46B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
