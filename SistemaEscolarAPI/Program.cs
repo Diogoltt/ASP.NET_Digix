@@ -6,6 +6,17 @@ using SistemaEscolarAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adicionar política CORS para permitir requisições do Live Server
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLiveServer", policy =>
+    {
+        policy.WithOrigins("http://127.0.0.1:5500", "http://localhost:5500")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,6 +44,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Habilitar CORS antes do UseRouting
+app.UseCors("AllowLiveServer");
 
 app.UseAuthentication();
 app.UseAuthorization();

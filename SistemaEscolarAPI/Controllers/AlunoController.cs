@@ -22,7 +22,12 @@ namespace SistemaEscolarAPI.Controllers
         {
             var alunos = await _context.Alunos
                 .Include(a => a.Curso)
-                .Select(alunos => new AlunoDTO { Nome = alunos.Nome, Curso = alunos.Curso.Descricao })
+                .Select(alunos => new AlunoDTO 
+                { 
+                    Id = alunos.Id,
+                    Nome = alunos.Nome, 
+                    Curso = alunos.Curso.Descricao 
+                })
                 .ToListAsync();
 
             return Ok(alunos);
