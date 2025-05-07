@@ -1,0 +1,59 @@
+/* Estilos comuns para as páginas de gestão (alunos, cursos, disciplinas) */
+
+/* Estilos para tabelas */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.actions-column {
+    width: 150px;
+}
+
+/* Estilos de layout */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+}
+
+/* Estilos para cards */
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Estilos para botões de ação */
+.btn-editar {
+    color: #fff;
+    background-color: #17a2b8;
+}
+
+.btn-excluir {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+/* Estilos para formulários */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos para alertas */
+#alert-container {
+    position: sticky;
+    top: 10px;
+    z-index: 1020;
+}
