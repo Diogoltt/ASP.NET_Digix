@@ -22,7 +22,6 @@ const AlertManager = {
         alertContainer.innerHTML = '';
         alertContainer.appendChild(alert);
         
-        // Auto-dismiss after 5 seconds
         setTimeout(() => {
             alert.classList.remove('show');
             setTimeout(() => alertContainer.innerHTML = '', 150);

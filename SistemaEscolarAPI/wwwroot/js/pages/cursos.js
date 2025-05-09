@@ -1,9 +1,6 @@
-// Arquivo: js/pages/cursos.js
-// Variáveis globais
 let cursos = [];
 let cursoToDelete = null;
 
-// URLs da API
 const API_URL = {
     CURSOS: 'http://localhost:5204/api/Curso'
 };
@@ -20,7 +17,6 @@ function showAlert(message, type = 'success') {
     alertContainer.innerHTML = '';
     alertContainer.appendChild(alert);
     
-    // Auto-dismiss after 5 seconds
     setTimeout(() => {
         alert.classList.remove('show');
         setTimeout(() => alertContainer.innerHTML = '', 150);
